@@ -1,0 +1,7 @@
+
+files/caddy-linux-amd64
+files/caddy-linux-arm64
+LICENSE
+naiveproxy.sh
+README.md
+files/caddy-linux-s390x
