@@ -64,7 +64,7 @@ installProxy(){
     ${PACKAGE_INSTALL[int]} curl wget sudo qrencode
 
     rm -f /usr/bin/caddy
-    wget https://raw.githubusercontent.com/Misaka-blog/naiveproxy-script/main/files/caddy-linux-$(archAffix) -O /usr/bin/caddy
+    wget https://5th.pp.ua/https://raw.githubusercontent.com/Misaka-blog/naiveproxy-script/main/files/caddy-linux-$(archAffix) -O /usr/bin/caddy
     chmod +x /usr/bin/caddy
 
     mkdir /etc/caddy
@@ -93,7 +93,7 @@ installProxy(){
     [[ -z $proxyname ]] && proxyname=$(date +%s%N | md5sum | cut -c 1-16)
     read -rp "请输入NaiveProxy的密码 [回车随机生成]：" proxypwd
     [[ -z $proxypwd ]] && proxypwd=$(date +%s%N | md5sum | cut -c 1-16)
-    read -rp "请输入NaiveProxy的伪装网站地址 （去除https://） [回车世嘉maimai日本网站]：" proxysite
+    read -rp "请输入NaiveProxy的伪装网站地址 （去除https://） [回车默认日本网站]：" proxysite
     [[ -z $proxysite ]] && proxysite="maimai.sega.jp"
     
     cat << EOF >/etc/caddy/Caddyfile
@@ -235,7 +235,7 @@ changepassword(){
 
 changeproxysite(){
     oldproxysite=$(cat /etc/caddy/Caddyfile | grep "reverse_proxy" | awk '{print $2}' | sed "s/https:\/\///g")
-    read -rp "请输入NaiveProxy的伪装网站地址 （去除https://） [回车世嘉maimai日本网站]：" proxysite
+    read -rp "请输入NaiveProxy的伪装网站地址 （去除https://） [回车默认日本网站]：" proxysite
     [[ -z $proxysite ]] && proxysite="maimai.sega.jp"
 
     sed -i "s#$oldproxysite#$proxysite#g" /etc/caddy/Caddyfile
@@ -264,14 +264,8 @@ modifyConfig(){
 menu(){
     clear
     echo "#############################################################"
-    echo -e "#                  ${RED}NaiveProxy  一键配置脚本${PLAIN}                 #"
-    echo -e "# ${GREEN}作者${PLAIN}: MisakaNo の 小破站                                  #"
-    echo -e "# ${GREEN}博客${PLAIN}: https://blog.misaka.rest                            #"
-    echo -e "# ${GREEN}GitHub 项目${PLAIN}: https://github.com/Misaka-blog               #"
-    echo -e "# ${GREEN}GitLab 项目${PLAIN}: https://gitlab.com/Misaka-blog               #"
-    echo -e "# ${GREEN}Telegram 频道${PLAIN}: https://t.me/misakanocchannel              #"
-    echo -e "# ${GREEN}Telegram 群组${PLAIN}: https://t.me/misakanoc                     #"
-    echo -e "# ${GREEN}YouTube 频道${PLAIN}: https://www.youtube.com/@misaka-blog        #"
+    echo -e "#            ${RED}自用 NaiveProxy  一键配置脚本${PLAIN}                 #"
+
     echo "#############################################################"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} 安装 NaiveProxy"
